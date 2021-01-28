@@ -4,6 +4,9 @@ var last_detected_state = {
   'value': []
 }
 var update_status_delay = 2*1000;
+
+console.log(window.location.origin);
+
 const video = document.getElementById('video')
 
 const startVideo = async () => {
