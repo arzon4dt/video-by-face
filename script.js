@@ -67,7 +67,7 @@ function onPlayerReady(event) {
     var video_state = event.target.getPlayerState(); 
     var curr_date = Date.now();
     if(curr_date - last_detected_state.time > update_status_delay){
-        console.log(video_state)
+        // console.log(video_state)
         last_detected_state.time = curr_date;
         last_detected_state.value = detections;
         if(last_detected_state.value.length > 0 && ( video_state == -1 || video_state == 2 || video_state == 5 ) ){
