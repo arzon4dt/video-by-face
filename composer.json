@@ -1,3 +1,13 @@
 {
-    
+    "name": "hube-ai/video-by-face",
+    "description": "Hube AI Play Video Triggered by Face Detection",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Hube AI",
+            "email": "hubeai2021@gmail.com",
+            "role": "Author"
+        }
+    ]
 }

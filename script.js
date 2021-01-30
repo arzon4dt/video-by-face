@@ -4,6 +4,7 @@ var last_detected_state = {
   'value': []
 }
 var update_status_delay = 2*1000;
+var play_button_clicked = false;
 
 console.log(window.location.origin);
 
@@ -61,7 +62,7 @@ function onPlayerReady(event) {
   const displaySize = { width: video.width, height: video.height }
   faceapi.matchDimensions(canvas, displaySize)
   setInterval(async () => {
-    const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions({inputSize: 320, scoreThreshold: 0.8, maxResults: 1}))
+    const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions({inputSize: 320, scoreThreshold: 0.75, maxResults: 1}))
     const resizedDetections = faceapi.resizeResults(detections, displaySize)
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
     faceapi.draw.drawDetections(canvas, resizedDetections)
@@ -69,7 +70,7 @@ function onPlayerReady(event) {
     // faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
     var video_state = event.target.getPlayerState(); 
     var curr_date = Date.now();
-    if(curr_date - last_detected_state.time > update_status_delay){
+    if(play_button_clicked && curr_date - last_detected_state.time > update_status_delay){
         // console.log(video_state)
         last_detected_state.time = curr_date;
         last_detected_state.value = detections;
@@ -88,9 +89,8 @@ function onPlayerReady(event) {
 //    the player should play for six seconds and then stop.
 var done = false;
 function onPlayerStateChange(event) {
-  if (event.data == YT.PlayerState.PLAYING && !done) {
-    setTimeout(stopVideo, 6000);
-    done = true;
+  if(event.target.getPlayerState() == 1 && !play_button_clicked){
+    play_button_clicked = true;
   }
 }
 
